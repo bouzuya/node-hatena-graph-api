@@ -1,0 +1,30 @@
+{
+  "name": "hatena-graph-api",
+  "version": "0.0.0",
+  "description": "Hatena::Graph API wrapper for Node.js (unofficial)",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha -R spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bouzuya/node-hatena-graph-api.git"
+  },
+  "keywords": [
+    "hatena"
+  ],
+  "author": "bouzuya",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bouzuya/node-hatena-graph-api/issues"
+  },
+  "homepage": "https://github.com/bouzuya/node-hatena-graph-api",
+  "dependencies": {
+    "request": "~2.33.0",
+    "wsse": "0.0.1"
+  },
+  "devDependencies": {
+    "chai": "~1.9.0",
+    "mocha": "~1.17.1"
+  }
+}
