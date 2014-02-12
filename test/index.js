@@ -117,7 +117,7 @@ describe('Hatena::Graph', function() {
     describe('getData', function() {
 
       it('works', function(done) {
-        graph.getData('test', function(err, json) {
+        graph.getData({ graphname: 'test' }, function(err, json) {
           expect(err).to.be.null;
           expect(json).to.not.be.null;
           done();
