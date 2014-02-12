@@ -129,7 +129,11 @@ describe('Hatena::Graph', function() {
     describe('postData', function() {
 
       it('works', function(done) {
-        graph.postData('test', '2014-02-02', '2.5', function(err) {
+        graph.postData({
+          graphname: 'test',
+          date: '2014-02-02',
+          value: '2.5'
+        }, function(err) {
           expect(err).to.be.null;
           done();
         });
