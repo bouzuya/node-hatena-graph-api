@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/bouzuya/node-hatena-graph-api",
   "dependencies": {
+    "q": "~1.0.0",
     "request": "~2.33.0",
     "wsse": "0.0.1"
   },

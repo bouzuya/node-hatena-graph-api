@@ -86,12 +86,29 @@ describe('Hatena::Graph', function() {
 
     describe('getConfig', function() {
 
-      it('works', function(done) {
-        graph.getConfig({ graphname: 'test' }, function(err, json) {
-          expect(err).to.be.null;
-          expect(json).to.not.be.null;
-          done();
+      describe('use callback', function() {
+
+        it('works', function(done) {
+          graph.getConfig({ graphname: 'test' }, function(err, json) {
+            expect(err).to.be.null;
+            expect(json).to.not.be.null;
+            done();
+          });
         });
+
+      });
+
+      describe('use promise', function() {
+
+        it('works', function(done) {
+          var promise = graph.getConfig({ graphname: 'test' });
+          expect(promise).to.be.ok;
+          promise.then(function(json) {
+            expect(json).to.not.be.null;
+            done();
+          });
+        });
+
       });
 
     });
