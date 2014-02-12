@@ -12,6 +12,76 @@ describe('Hatena::Graph', function() {
     done();
   });
 
+  describe('constructor', function() {
+
+    var original = process.env;
+
+    beforeEach(function() {
+      original = process.env;
+      process.env = {};
+    });
+
+    afterEach(function() { process.env = original; });
+
+    describe('arguments', function() {
+
+      describe('without auth', function() {
+
+        it('throw Error', function(done) {
+          expect(function() {
+            hatenaGraph();
+          }).to.throw(Error);
+          done();
+        });
+
+      });
+
+      describe('with auth', function() {
+
+        it('not throw Error', function(done) {
+          expect(function() {
+            hatenaGraph('username', 'password');
+          }).to.not.throw(Error);
+          done();
+        });
+
+      });
+
+    });
+
+    describe('environment variables', function() {
+
+      describe('without auth', function() {
+
+        it('throw Error', function(done) {
+          process.env = {};
+          expect(function() {
+            hatenaGraph(); // use process.env
+          }).to.throw(Error);
+          done();
+        });
+
+      });
+
+      describe('with auth', function() {
+
+        it('not throw Error', function(done) {
+          process.env = {
+            HATENA_USERNAME: 'username',
+            HATENA_APIKEY: 'password'
+          };
+          expect(function() {
+            hatenaGraph(); // use process.env
+          }).to.not.throw(Error);
+          done();
+        });
+
+      });
+
+    });
+
+  });
+
   describe('CONFIG API', function() {
 
     describe('getConfig', function() {
@@ -70,5 +140,4 @@ describe('Hatena::Graph', function() {
   });
 
 });
-
 
