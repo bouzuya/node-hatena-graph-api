@@ -115,45 +115,62 @@ describe('Hatena::Graph', function() {
 
     describe('postConfig', function() {
 
-      it('works', function(done) {
-        graph.postConfig({
-          graphname: 'test',
-          graphcolor: '000000'
-        }, function(err) {
-          expect(err).to.be.null;
-          done();
+      describe('use callback', function() {
+
+        it('works', function(done) {
+          graph.postConfig({
+            graphname: 'test',
+            graphcolor: '000000'
+          }, function(err) {
+            expect(err).to.be.null;
+            done();
+          });
         });
+
+      });
+
+      describe('use promise', function() {
+
+        it('works', function(done) {
+          graph.postConfig({
+            graphname: 'test',
+            graphcolor: '000000'
+          }).then(function() {
+            done();
+          });
+        });
+
       });
 
     });
 
-  });
+    describe('DATA API', function() {
 
-  describe('DATA API', function() {
+      describe('getData', function() {
 
-    describe('getData', function() {
-
-      it('works', function(done) {
-        graph.getData({ graphname: 'test' }, function(err, json) {
-          expect(err).to.be.null;
-          expect(json).to.not.be.null;
-          done();
+        it('works', function(done) {
+          graph.getData({ graphname: 'test' }, function(err, json) {
+            expect(err).to.be.null;
+            expect(json).to.not.be.null;
+            done();
+          });
         });
+
       });
 
-    });
+      describe('postData', function() {
 
-    describe('postData', function() {
-
-      it('works', function(done) {
-        graph.postData({
-          graphname: 'test',
-          date: '2014-02-02',
-          value: '2.5'
-        }, function(err) {
-          expect(err).to.be.null;
-          done();
+        it('works', function(done) {
+          graph.postData({
+            graphname: 'test',
+            date: '2014-02-02',
+            value: '2.5'
+          }, function(err) {
+            expect(err).to.be.null;
+            done();
+          });
         });
+
       });
 
     });
