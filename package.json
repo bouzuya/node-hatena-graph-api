@@ -4,7 +4,7 @@
   "description": "Hatena::Graph API wrapper for Node.js (unofficial)",
   "main": "index.js",
   "scripts": {
-    "test": "mocha -R spec"
+    "test": "mocha -R spec -t 5000"
   },
   "repository": {
     "type": "git",

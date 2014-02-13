@@ -179,15 +179,35 @@ describe('Hatena::Graph', function() {
 
       describe('postData', function() {
 
-        it('works', function(done) {
-          graph.postData({
-            graphname: 'test',
-            date: '2014-02-02',
-            value: '2.5'
-          }, function(err) {
-            expect(err).to.be.null;
-            done();
+        describe('use callback', function() {
+
+          it('works', function(done) {
+            graph.postData({
+              graphname: 'test',
+              date: '2014-02-02',
+              value: '2.5'
+            }, function(err) {
+              expect(err).to.be.null;
+              done();
+            });
           });
+
+        });
+
+        describe('use promise', function() {
+
+          it('works', function(done) {
+            var promise = graph.postData({
+              graphname: 'test',
+              date: '2014-02-02',
+              value: '2.5'
+            });
+            expect(promise).to.be.ok;
+            promise.then(function() {
+              done();
+            });
+          });
+
         });
 
       });
