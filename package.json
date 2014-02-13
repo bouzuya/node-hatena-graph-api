@@ -1,6 +1,6 @@
 {
   "name": "hatena-graph-api",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Hatena::Graph API wrapper for Node.js (unofficial)",
   "main": "index.js",
   "scripts": {
