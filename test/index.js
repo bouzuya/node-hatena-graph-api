@@ -82,9 +82,9 @@ describe('Hatena::Graph', function() {
 
   });
 
-  describe('CONFIG API', function() {
+  describe('config', function() {
 
-    describe('getConfig', function() {
+    describe('get', function() {
 
       describe('use callback', function() {
 
@@ -113,7 +113,7 @@ describe('Hatena::Graph', function() {
 
     });
 
-    describe('postConfig', function() {
+    describe('post', function() {
 
       describe('use callback', function() {
 
@@ -146,68 +146,68 @@ describe('Hatena::Graph', function() {
 
     });
 
-    describe('DATA API', function() {
+  });
 
-      describe('getData', function() {
+  describe('data', function() {
 
-        describe('use callback', function() {
+    describe('get', function() {
 
-          it('works', function(done) {
-            graph.getData({ graphname: 'test' }, function(err, json) {
-              expect(err).to.be.null;
-              expect(json).to.not.be.null;
-              done();
-            });
+      describe('use callback', function() {
+
+        it('works', function(done) {
+          graph.getData({ graphname: 'test' }, function(err, json) {
+            expect(err).to.be.null;
+            expect(json).to.not.be.null;
+            done();
           });
-
-        });
-
-        describe('use promise', function() {
-
-          it('works', function(done) {
-            var promise = graph.getData({ graphname: 'test' })
-            expect(promise).to.be.ok;
-            promise.then(function(json) {
-              expect(json).to.not.be.null;
-              done();
-            });
-          });
-
         });
 
       });
 
-      describe('postData', function() {
+      describe('use promise', function() {
 
-        describe('use callback', function() {
-
-          it('works', function(done) {
-            graph.postData({
-              graphname: 'test',
-              date: '2014-02-02',
-              value: '2.5'
-            }, function(err) {
-              expect(err).to.be.null;
-              done();
-            });
+        it('works', function(done) {
+          var promise = graph.getData({ graphname: 'test' })
+          expect(promise).to.be.ok;
+          promise.then(function(json) {
+            expect(json).to.not.be.null;
+            done();
           });
-
         });
 
-        describe('use promise', function() {
+      });
 
-          it('works', function(done) {
-            var promise = graph.postData({
-              graphname: 'test',
-              date: '2014-02-02',
-              value: '2.5'
-            });
-            expect(promise).to.be.ok;
-            promise.then(function() {
-              done();
-            });
+    });
+
+    describe('post', function() {
+
+      describe('use callback', function() {
+
+        it('works', function(done) {
+          graph.postData({
+            graphname: 'test',
+            date: '2014-02-02',
+            value: '2.5'
+          }, function(err) {
+            expect(err).to.be.null;
+            done();
           });
+        });
 
+      });
+
+      describe('use promise', function() {
+
+        it('works', function(done) {
+          var promise = graph.postData({
+            graphname: 'test',
+            date: '2014-02-02',
+            value: '2.5'
+          });
+          expect(promise).to.be.ok;
+          promise.then(function() {
+            done();
+          });
         });
 
       });
