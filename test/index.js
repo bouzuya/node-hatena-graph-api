@@ -12,57 +12,204 @@ describe('Hatena::Graph', function() {
     done();
   });
 
-  describe('CONFIG API', function() {
+  describe('constructor', function() {
 
-    describe('getConfig', function() {
+    var original = process.env;
 
-      it('works', function(done) {
-        graph.getConfig('test', function(err, json) {
-          expect(err).to.be.null;
-          expect(json).to.not.be.null;
+    beforeEach(function() {
+      original = process.env;
+      process.env = {};
+    });
+
+    afterEach(function() { process.env = original; });
+
+    describe('arguments', function() {
+
+      describe('without auth', function() {
+
+        it('throw Error', function(done) {
+          expect(function() {
+            hatenaGraph();
+          }).to.throw(Error);
           done();
         });
+
+      });
+
+      describe('with auth', function() {
+
+        it('not throw Error', function(done) {
+          expect(function() {
+            hatenaGraph('username', 'password');
+          }).to.not.throw(Error);
+          done();
+        });
+
       });
 
     });
 
-    describe('postConfig', function() {
+    describe('environment variables', function() {
 
-      it('works', function(done) {
-        graph.postConfig({
-          graphname: 'test',
-          graphcolor: '000000'
-        }, function(err) {
-          expect(err).to.be.null;
+      describe('without auth', function() {
+
+        it('throw Error', function(done) {
+          process.env = {};
+          expect(function() {
+            hatenaGraph(); // use process.env
+          }).to.throw(Error);
           done();
         });
+
+      });
+
+      describe('with auth', function() {
+
+        it('not throw Error', function(done) {
+          process.env = {
+            HATENA_USERNAME: 'username',
+            HATENA_APIKEY: 'password'
+          };
+          expect(function() {
+            hatenaGraph(); // use process.env
+          }).to.not.throw(Error);
+          done();
+        });
+
       });
 
     });
 
   });
 
-  describe('DATA API', function() {
+  describe('config', function() {
 
-    describe('getData', function() {
+    describe('get', function() {
 
-      it('works', function(done) {
-        graph.getData('test', function(err, json) {
-          expect(err).to.be.null;
-          expect(json).to.not.be.null;
-          done();
+      describe('use callback', function() {
+
+        it('works', function(done) {
+          graph.getConfig({ graphname: 'test' }, function(err, json) {
+            expect(err).to.be.null;
+            expect(json).to.not.be.null;
+            done();
+          });
         });
+
+      });
+
+      describe('use promise', function() {
+
+        it('works', function(done) {
+          var promise = graph.getConfig({ graphname: 'test' });
+          expect(promise).to.be.ok;
+          promise.then(function(json) {
+            expect(json).to.not.be.null;
+            done();
+          });
+        });
+
       });
 
     });
 
-    describe('postData', function() {
+    describe('post', function() {
 
-      it('works', function(done) {
-        graph.postData('test', '2014-02-02', '2.5', function(err) {
-          expect(err).to.be.null;
-          done();
+      describe('use callback', function() {
+
+        it('works', function(done) {
+          graph.postConfig({
+            graphname: 'test',
+            graphcolor: '000000'
+          }, function(err) {
+            expect(err).to.be.null;
+            done();
+          });
         });
+
+      });
+
+      describe('use promise', function() {
+
+        it('works', function(done) {
+          var promise = graph.postConfig({
+            graphname: 'test',
+            graphcolor: '000000'
+          });
+          expect(promise).to.be.ok;
+          promise.then(function() {
+            done();
+          });
+        });
+
+      });
+
+    });
+
+  });
+
+  describe('data', function() {
+
+    describe('get', function() {
+
+      describe('use callback', function() {
+
+        it('works', function(done) {
+          graph.getData({ graphname: 'test' }, function(err, json) {
+            expect(err).to.be.null;
+            expect(json).to.not.be.null;
+            done();
+          });
+        });
+
+      });
+
+      describe('use promise', function() {
+
+        it('works', function(done) {
+          var promise = graph.getData({ graphname: 'test' })
+          expect(promise).to.be.ok;
+          promise.then(function(json) {
+            expect(json).to.not.be.null;
+            done();
+          });
+        });
+
+      });
+
+    });
+
+    describe('post', function() {
+
+      describe('use callback', function() {
+
+        it('works', function(done) {
+          graph.postData({
+            graphname: 'test',
+            date: '2014-02-02',
+            value: '2.5'
+          }, function(err) {
+            expect(err).to.be.null;
+            done();
+          });
+        });
+
+      });
+
+      describe('use promise', function() {
+
+        it('works', function(done) {
+          var promise = graph.postData({
+            graphname: 'test',
+            date: '2014-02-02',
+            value: '2.5'
+          });
+          expect(promise).to.be.ok;
+          promise.then(function() {
+            done();
+          });
+        });
+
       });
 
     });
@@ -70,5 +217,4 @@ describe('Hatena::Graph', function() {
   });
 
 });
-
 
