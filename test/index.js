@@ -132,10 +132,12 @@ describe('Hatena::Graph', function() {
       describe('use promise', function() {
 
         it('works', function(done) {
-          graph.postConfig({
+          var promise = graph.postConfig({
             graphname: 'test',
             graphcolor: '000000'
-          }).then(function() {
+          });
+          expect(promise).to.be.ok;
+          promise.then(function() {
             done();
           });
         });
@@ -148,12 +150,29 @@ describe('Hatena::Graph', function() {
 
       describe('getData', function() {
 
-        it('works', function(done) {
-          graph.getData({ graphname: 'test' }, function(err, json) {
-            expect(err).to.be.null;
-            expect(json).to.not.be.null;
-            done();
+        describe('use callback', function() {
+
+          it('works', function(done) {
+            graph.getData({ graphname: 'test' }, function(err, json) {
+              expect(err).to.be.null;
+              expect(json).to.not.be.null;
+              done();
+            });
           });
+
+        });
+
+        describe('use promise', function() {
+
+          it('works', function(done) {
+            var promise = graph.getData({ graphname: 'test' })
+            expect(promise).to.be.ok;
+            promise.then(function(json) {
+              expect(json).to.not.be.null;
+              done();
+            });
+          });
+
         });
 
       });
